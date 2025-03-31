@@ -25,22 +25,23 @@ map.on('load', () => {
         fetch('data/GeoJson for Food Bank.json').then(res => res.json()),
         fetch('data/Milton Bus Stops.json').then(res => res.json()),
         fetch('data/Oakville Bus Stops.json').then(res => res.json())
-    ]).then(([foodBanks, miltonStops, oakvilleStops]) => {
+    ])
+    .then(([foodBanks, miltonStops, oakvilleStops]) => {
         // Merge all bus stops into one FeatureCollection
         const allBusStops = {
             type: "FeatureCollection",
             features: [...miltonStops.features, ...oakvilleStops.features]
         };
 
-        // Get bounding box for area
+        // Define bounding box and cell size for hex grid
         const bbox = [-80.205448, 43.264334, -79.606710, 43.710887];
-        const cellSize = 1; // km
+        const cellSize = 1; // in kilometers
         const options = { units: 'kilometers' };
 
         // Generate hexgrid over area
         let hexgrid = turf.hexGrid(bbox, cellSize, options);
 
-        // Filter bus stops to only those within 1.5 km of food banks
+        // Filter bus stops: only include stops within 1.5 km of any food bank
         const nearbyStops = allBusStops.features.filter(stop => {
             return foodBanks.features.some(bank => {
                 const dist = turf.distance(bank, stop, { units: 'kilometers' });
@@ -53,13 +54,20 @@ map.on('load', () => {
             features: nearbyStops
         };
 
-        // Count bus stops in each hex cell
+        // Count bus stops in each hex cell using turf.collect
+        // Using property "stop_id"; if a bus stop doesn't have "stop_id", it won't contribute.
+        // You may modify this if your data uses a different property name.
         const hexWithCounts = turf.collect(hexgrid, filteredStops, 'stop_id', 'stop_ids');
+
         hexWithCounts.features.forEach(f => {
+            // If stop_ids is undefined, initialize as an empty array
+            if (!f.properties.stop_ids) {
+                f.properties.stop_ids = [];
+            }
             f.properties.stop_count = f.properties.stop_ids.length;
         });
 
-        // Add hexgrid to map
+        // Add hexgrid as a source and add layer to display it
         map.addSource('hexgrid', {
             type: 'geojson',
             data: hexWithCounts
@@ -83,9 +91,13 @@ map.on('load', () => {
                 'fill-outline-color': '#333'
             }
         });
+    })
+    .catch(error => {
+        console.error("Error loading food bank or bus stop data:", error);
     });
 
-    // Load other layers (address points and food banks)
+    // Load additional layers: address points and food banks
+    // Burlington Address Points
     map.addSource('burlington-address-points', {
         type: 'geojson',
         data: 'data/Burlington_Address_Points.geojson'
@@ -101,6 +113,7 @@ map.on('load', () => {
         }
     });
 
+    // Milton Address Points
     map.addSource('milton-address-points', {
         type: 'geojson',
         data: 'data/Milton_Address_Points.geojson'
@@ -116,6 +129,8 @@ map.on('load', () => {
         }
     });
 
+    // Oakville Address Points
+    // Note: Verify the file name. It currently reads "Oakville_Adress_Points.geojson". If this is a typo, update accordingly.
     map.addSource('oakville-address-points', {
         type: 'geojson',
         data: 'data/Oakville_Adress_Points.geojson'
@@ -125,56 +140,4 @@ map.on('load', () => {
         type: 'circle',
         source: 'oakville-address-points',
         paint: {
-            'circle-radius': 3,
-            'circle-color': '#ff7f00',
-            'circle-opacity': 0.6
-        }
-    });
-
-    map.addSource('milton-bus-stops', {
-        type: 'geojson',
-        data: 'data/Milton Bus Stops.json'
-    });
-    map.addLayer({
-        id: 'milton-bus-layer',
-        type: 'circle',
-        source: 'milton-bus-stops',
-        paint: {
-            'circle-radius': 4,
-            'circle-color': '#e31a1c',
-            'circle-opacity': 0.8
-        }
-    });
-
-    map.addSource('oakville-bus-stops', {
-        type: 'geojson',
-        data: 'data/Oakville Bus Stops.json'
-    });
-    map.addLayer({
-        id: 'oakville-bus-layer',
-        type: 'circle',
-        source: 'oakville-bus-stops',
-        paint: {
-            'circle-radius': 4,
-            'circle-color': '#6a3d9a',
-            'circle-opacity': 0.8
-        }
-    });
-
-    map.addSource('food-banks', {
-        type: 'geojson',
-        data: 'data/GeoJson for Food Bank.json'
-    });
-    map.addLayer({
-        id: 'food-banks-layer',
-        type: 'circle',
-        source: 'food-banks',
-        paint: {
-            'circle-radius': 6,
-            'circle-color': '#fb9a99',
-            'circle-stroke-color': '#000',
-            'circle-stroke-width': 1,
-            'circle-opacity': 0.9
-        }
-    });
-});
+            '
