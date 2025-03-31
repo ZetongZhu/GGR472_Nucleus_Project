@@ -140,4 +140,8 @@ map.on('load', () => {
         type: 'circle',
         source: 'oakville-address-points',
         paint: {
-            '
+            
+            }
+        });
+    });
+;
