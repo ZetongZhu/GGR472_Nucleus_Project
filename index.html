@@ -1,206 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Nucleus Independent Living - Food Access Web Map</title>
+  <meta charset="UTF-8">
+  <title>Nucleus Independent Living - Food Access Map</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- Bootstrap 5.3.3 CSS via CDN -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-  <!-- Leaflet CSS -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
-    integrity="sha512-sA+eP+0coz2fOf4GjW7a1fPWNEuLo8KydXfX+rFqyZ0Pt39BpcYxPJc8FLSFQblC2xzO6g4f8qS6fDbU4r09gQ=="
-    crossorigin=""/>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
   <style>
-    /* Banner: 小而宽 */
+    body {
+      background-color: #1c2237;
+      color: #ffffff;
+    }
     .banner {
-      background: url('https://www.nucleusonline.ca/') center center / cover no-repeat;
+      background-color: #1c2237;
       height: 80px;
       width: 100%;
     }
-    /* Map 容器默认样式 */
-    #map {
+    .nav-tabs .nav-link {
+      color: #ffffff;
+    }
+    .nav-tabs .nav-link.active {
+      background-color: #f05a28;
+      color: #fff;
+    }
+    .tab-content {
+      background-color: #ffffff;
+      color: #000000;
+      border-radius: 6px;
+      padding: 2rem;
+    }
+    .iframe-map {
       width: 100%;
-      height: 50vh;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
-    /* 全屏地图样式 */
-    .full-screen {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      z-index: 1050;
-    }
-    /* 退出全屏按钮 */
-    .exit-fullscreen {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      z-index: 1100;
+      height: 75vh;
+      border-radius: 8px;
+      border: none;
     }
   </style>
 </head>
 <body>
-  <!-- Banner -->
   <div class="banner"></div>
-  
-  <!-- Bootstrap 默认导航栏 -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">Nucleus Independent Living</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
-              aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link active" id="about-tab" data-bs-toggle="tab" href="#about" role="tab" aria-controls="about" aria-selected="true">About</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" id="data-tab" data-bs-toggle="tab" href="#data" role="tab" aria-controls="data" aria-selected="false">Data Sources</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" id="methodology-tab" data-bs-toggle="tab" href="#methodology" role="tab" aria-controls="methodology" aria-selected="false">Methodology</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" id="map-tab" data-bs-toggle="tab" href="#mapContent" role="tab" aria-controls="mapContent" aria-selected="false">Map</a>
-          </li>
-        </ul>
-      </div>
+
+  <div class="container mt-4">
+    <div class="text-center mb-4">
+      <h1 class="display-5 fw-bold text-white">Food Access Mapping – Halton Region</h1>
+      <p class="lead text-light">Nucleus Independent Living – GGR472 Final Project</p>
     </div>
-  </nav>
-  
-  <!-- Tab 内容区域 -->
-  <div class="container my-3">
-    <div class="tab-content" id="myTabContent">
-      <!-- About Tab -->
-      <div class="tab-pane fade show active" id="about" role="tabpanel" aria-labelledby="about-tab">
-        <div class="p-3">
-          <h2>About the Project</h2>
-          <p>
-            Nucleus Independent Living aims to enhance food accessibility in the Halton Region.
-            Our web map visualizes geographic barriers by overlaying data on food banks, residential addresses, and public transit.
-          </p>
+
+    <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="about-tab" data-bs-toggle="tab" data-bs-target="#about" type="button" role="tab"><i class="bi bi-info-circle"></i> About</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="data-tab" data-bs-toggle="tab" data-bs-target="#data" type="button" role="tab"><i class="bi bi-database"></i> Data Sources</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="methodology-tab" data-bs-toggle="tab" data-bs-target="#methodology" type="button" role="tab"><i class="bi bi-gear"></i> Methodology</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="map-tab" data-bs-toggle="tab" data-bs-target="#mapPanel" type="button" role="tab"><i class="bi bi-map"></i> Map</button>
+      </li>
+    </ul>
+
+    <div class="tab-content mt-4" id="myTabContent">
+      <div class="tab-pane fade show active" id="about" role="tabpanel">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h3 class="card-title">About the Project</h3>
+            <p class="card-text">This map helps Nucleus Independent Living analyze geographic barriers to food access across the Halton Region.</p>
+          </div>
         </div>
       </div>
-      <!-- Data Sources Tab -->
-      <div class="tab-pane fade" id="data" role="tabpanel" aria-labelledby="data-tab">
-        <div class="p-3">
-          <h2>Data Sources</h2>
-          <ul>
-            <li>Canada Census: Dissemination Areas & demographics</li>
-            <li>Halton Region Open Data (Burlington, Milton, Oakville)</li>
-            <li>Public Transit Open Data (e.g., GO Transit)</li>
-            <li>Food Bank Locations provided by partner organizations</li>
-          </ul>
+      <div class="tab-pane fade" id="data" role="tabpanel">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h3 class="card-title">Data Sources</h3>
+            <ul>
+              <li>Statistics Canada</li>
+              <li>Halton Region Open Data</li>
+              <li>GO Transit & Local Bus Stops</li>
+              <li>Partner-provided Food Bank Locations</li>
+            </ul>
+          </div>
         </div>
       </div>
-      <!-- Methodology Tab -->
-      <div class="tab-pane fade" id="methodology" role="tabpanel" aria-labelledby="methodology-tab">
-        <div class="p-3">
-          <h2>Methodology</h2>
-          <p>
-            We combine spatial analysis and interactive web mapping to explore barriers to food access.
-            Key processes include calculating distances using Turf.js, generating buffers and heatmaps,
-            and overlaying multiple datasets.
-          </p>
+      <div class="tab-pane fade" id="methodology" role="tabpanel">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h3 class="card-title">Methodology</h3>
+            <p>Spatial analysis performed with Turf.js hexGrid and distance filtering. Mapbox visualizes service coverage and transit access proximity.</p>
+          </div>
         </div>
       </div>
-      <!-- Map Tab -->
-      <div class="tab-pane fade" id="mapContent" role="tabpanel" aria-labelledby="map-tab">
-        <div id="map"></div>
+      <div class="tab-pane fade" id="mapPanel" role="tabpanel">
+        <h3 class="mb-3">Interactive Web Map With Different Layers</h3>
+        <iframe class="iframe-map" src="https://utoronto.maps.arcgis.com/apps/instant/basic/index.html?appid=679266b02ebb4b5ba87f94a512d9f668" allowfullscreen loading="lazy"></iframe>
       </div>
     </div>
   </div>
-  
-  <!-- 退出全屏按钮（初始隐藏） -->
-  <button id="exitFullScreenBtn" class="btn btn-danger exit-fullscreen d-none">Exit Full Screen</button>
-  
-  <!-- Bootstrap Bundle JS (includes Popper) via CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-  <!-- Leaflet JS -->
-  <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
-    integrity="sha512-XQoYMqMTK8LvdlxygKF6PvLAa8R9gqQ6+Wl7CM3EETB8dvY06v0RJD4l6Nf1nQF0pf7bJ6m9m5wQ0Z4T6YkN1w=="
-    crossorigin=""></script>
-  <!-- Turf.js -->
-  <script src="https://unpkg.com/@turf/turf@6/turf.min.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      // 初始化 Leaflet 地图
-      var myMap = L.map('map').setView([43.5, -79.8], 10);
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 19,
-        attribution: '&copy; OpenStreetMap contributors'
-      }).addTo(myMap);
-      
-      // 示例数据: Food Banks
-      var foodBanks = {
-        "type": "FeatureCollection",
-        "features": [
-          {
-            "type": "Feature",
-            "properties": { "name": "Food Bank A" },
-            "geometry": { "type": "Point", "coordinates": [-79.9, 43.6] }
-          },
-          {
-            "type": "Feature",
-            "properties": { "name": "Food Bank B" },
-            "geometry": { "type": "Point", "coordinates": [-79.7, 43.5] }
-          }
-        ]
-      };
-      
-      L.geoJSON(foodBanks, {
-        pointToLayer: function(feature, latlng) {
-          return L.circleMarker(latlng, {
-            radius: 8,
-            fillColor: "#f05a28",
-            color: "#fff",
-            weight: 1,
-            opacity: 1,
-            fillOpacity: 0.9
-          }).bindPopup(feature.properties.name);
-        }
-      }).addTo(myMap);
-      
-      // 全屏地图模式相关逻辑
-      const exitBtn = document.getElementById('exitFullScreenBtn');
-      var tabTriggers = document.querySelectorAll('a[data-bs-toggle="tab"]');
-      tabTriggers.forEach(function(trigger) {
-        trigger.addEventListener('shown.bs.tab', function(e) {
-          if(e.target.getAttribute('href') === '#mapContent') {
-            enterFullScreenMap();
-          } else {
-            exitFullScreenMap();
-          }
-        });
-      });
-      
-      function enterFullScreenMap() {
-        document.querySelector('.banner').classList.add('d-none');
-        document.querySelector('.navbar').classList.add('d-none');
-        document.getElementById('map').classList.add('full-screen');
-        exitBtn.classList.remove('d-none');
-        setTimeout(function() { myMap.invalidateSize(); }, 300);
-      }
-      
-      function exitFullScreenMap() {
-        document.querySelector('.banner').classList.remove('d-none');
-        document.querySelector('.navbar').classList.remove('d-none');
-        document.getElementById('map').classList.remove('full-screen');
-        exitBtn.classList.add('d-none');
-        setTimeout(function() { myMap.invalidateSize(); }, 300);
-      }
-      
-      exitBtn.addEventListener('click', function() {
-        // 切换回 About Tab
-        var aboutTab = new bootstrap.Tab(document.getElementById('about-tab'));
-        aboutTab.show();
-      });
-    });
-  </script>
+
+  <footer class="bg-dark text-light text-center py-3 mt-5">
+    <small>&copy; 2024 GGR472 Final Project | Created for Nucleus Independent Living</small>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
