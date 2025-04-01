@@ -4,20 +4,28 @@
   <meta charset="UTF-8">
   <title>Nucleus Independent Living - Food Access Map</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- Bootstrap CSS -->
+
+  <!-- Bootstrap CSS for layout and styling -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Bootstrap Icons -->
+
+  <!-- Bootstrap Icons for tab icons -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
   <style>
+    /* Global background and text color */
     body {
-      background-color: #1c2237;
+      background-color: #1c2237; /* Deep blue background (Nucleus style) */
       color: #ffffff;
     }
+
+    /* Top banner styling */
     .banner {
       background-color: #1c2237;
       height: 80px;
       width: 100%;
     }
+
+    /* Nav tab styles */
     .nav-tabs .nav-link {
       color: #ffffff;
     }
@@ -25,12 +33,16 @@
       background-color: #f05a28;
       color: #fff;
     }
+
+    /* White card-style content with black text */
     .tab-content {
       background-color: #ffffff;
       color: #000000;
       border-radius: 6px;
       padding: 2rem;
     }
+
+    /* Map iframe styling */
     .iframe-map {
       width: 100%;
       height: 75vh;
@@ -39,71 +51,144 @@
     }
   </style>
 </head>
+
 <body>
+  <!-- Header banner -->
   <div class="banner"></div>
 
+  <!-- Main container -->
   <div class="container mt-4">
+    <!-- Page title and subtitle -->
     <div class="text-center mb-4">
       <h1 class="display-5 fw-bold text-white">Food Access Mapping – Halton Region</h1>
       <p class="lead text-light">Nucleus Independent Living – GGR472 Final Project</p>
     </div>
 
+    <!-- Navigation Tabs -->
     <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
+      <!-- Renamed About Tab -->
       <li class="nav-item" role="presentation">
-        <button class="nav-link active" id="about-tab" data-bs-toggle="tab" data-bs-target="#about" type="button" role="tab"><i class="bi bi-info-circle"></i> About</button>
+        <button class="nav-link active" id="about-tab" data-bs-toggle="tab" data-bs-target="#about" type="button" role="tab">
+          <i class="bi bi-star-fill"></i> What We Create for U!
+        </button>
       </li>
+      <!-- Data Sources Tab -->
       <li class="nav-item" role="presentation">
-        <button class="nav-link" id="data-tab" data-bs-toggle="tab" data-bs-target="#data" type="button" role="tab"><i class="bi bi-database"></i> Data Sources</button>
+        <button class="nav-link" id="data-tab" data-bs-toggle="tab" data-bs-target="#data" type="button" role="tab">
+          <i class="bi bi-database"></i> Data Sources
+        </button>
       </li>
+      <!-- Methodology Tab -->
       <li class="nav-item" role="presentation">
-        <button class="nav-link" id="methodology-tab" data-bs-toggle="tab" data-bs-target="#methodology" type="button" role="tab"><i class="bi bi-gear"></i> Methodology</button>
+        <button class="nav-link" id="methodology-tab" data-bs-toggle="tab" data-bs-target="#methodology" type="button" role="tab">
+          <i class="bi bi-gear"></i> Methodology
+        </button>
       </li>
+      <!-- Map Tab -->
       <li class="nav-item" role="presentation">
-        <button class="nav-link" id="map-tab" data-bs-toggle="tab" data-bs-target="#mapPanel" type="button" role="tab"><i class="bi bi-map"></i> Map</button>
+        <button class="nav-link" id="map-tab" data-bs-toggle="tab" data-bs-target="#mapPanel" type="button" role="tab">
+          <i class="bi bi-map"></i> Map
+        </button>
       </li>
     </ul>
 
+    <!-- Tab content -->
     <div class="tab-content mt-4" id="myTabContent">
+
+      <!-- What We Create for U! (About section content) -->
       <div class="tab-pane fade show active" id="about" role="tabpanel">
         <div class="card shadow-sm">
           <div class="card-body">
-            <h3 class="card-title">About the Project</h3>
-            <p class="card-text">This map helps Nucleus Independent Living analyze geographic barriers to food access across the Halton Region.</p>
+            <h3 class="card-title">What We Create for U!</h3>
+            <p>Our interactive map provides Nucleus Independent Living with actionable geographic insights by:</p>
+            <ul>
+              <li><strong>Identifying Underserved Neighborhoods:</strong> Dissemination Areas are color-coded based on proximity to food banks, highlighting neighborhoods with limited food bank accessibility.</li>
+              <li><strong>Evaluating Transit Accessibility:</strong> Visualizes the number of bus stops within a 1,000-meter radius around food banks, enabling assessment of public transit access to food assistance.</li>
+              <li><strong>Detailed Household Analysis:</strong> Address points are mapped with proximity to bus stops, facilitating tailored analyses for client-specific transit accessibility.</li>
+            </ul>
+            <p>This systematic spatial analysis empowers Nucleus to strategically enhance their food accessibility initiatives and target interventions effectively.</p>
           </div>
         </div>
       </div>
+
+      <!-- Data Sources -->
       <div class="tab-pane fade" id="data" role="tabpanel">
         <div class="card shadow-sm">
           <div class="card-body">
             <h3 class="card-title">Data Sources</h3>
             <ul>
-              <li>Statistics Canada</li>
-              <li>Halton Region Open Data</li>
-              <li>GO Transit & Local Bus Stops</li>
-              <li>Partner-provided Food Bank Locations</li>
+              <li>
+                <strong>Public transit data (Individual municipalities)</strong>
+                <ul>
+                  <li>City of Burlington open data portal</li>
+                  <li>Town of Oakville open data portal</li>
+                  <li>Town of Milton open data portal</li>
+                </ul>
+              </li>
+              
+              
+            
+              <li>
+                <strong>Food bank location data</strong>
+                <ul>
+                  <li>FeedHalton.ca</li>
+                </ul>
+              </li>
+              <li>
+                <strong>Address points data</strong>
+                <ul>
+                  <li>City of Burlington open data portal</li>
+                  <li>Town of Oakville open data portal</li>
+                  <li>Town of Milton open data portal</li>
+                  <li>Town of Halton Hills open data portal <span class="text-danger">(Missing!)</span></li>
+                </ul>
+              </li>
+              <li>
+                <strong>Dissemination Area (DA) Boundary data</strong>
+                <ul>
+                  <li>Statistics Canada</li>
+                </ul>
+              </li>
             </ul>
+            
+            
           </div>
         </div>
       </div>
+
+      <!-- Methodology -->
       <div class="tab-pane fade" id="methodology" role="tabpanel">
         <div class="card shadow-sm">
           <div class="card-body">
             <h3 class="card-title">Methodology</h3>
-            <p>Spatial analysis performed with Turf.js hexGrid and distance filtering. Mapbox visualizes service coverage and transit access proximity.</p>
+            <p>
+              Spatial analysis performed using proximity and containment logic between food banks, dissemination areas, and bus stops. 
+              We applied color gradients, hexgrids, and buffer queries using Turf.js and ArcGIS tools to identify underserved regions and accessibility challenges.
+            </p>
           </div>
         </div>
       </div>
+
+      <!-- Map Tab with ArcGIS Embedded Map -->
       <div class="tab-pane fade" id="mapPanel" role="tabpanel">
         <h3 class="mb-3">Interactive Web Map With Different Layers</h3>
-        <iframe class="iframe-map" src="https://utoronto.maps.arcgis.com/apps/instant/basic/index.html?appid=679266b02ebb4b5ba87f94a512d9f668" allowfullscreen loading="lazy"></iframe>
+        <!-- ArcGIS Instant App iframe -->
+        <iframe 
+          class="iframe-map" 
+          src="https://utoronto.maps.arcgis.com/apps/instant/basic/index.html?appid=5809f2a4f5884667b4161415ccf93517" 
+          allowfullscreen 
+          loading="lazy">
+        </iframe>
       </div>
     </div>
   </div>
 
+  <!-- Footer section -->
   <footer class="bg-dark text-light text-center py-3 mt-5">
     <small>&copy; 2024 GGR472 Final Project | Created for Nucleus Independent Living</small>
   </footer>
 
+  <!-- Bootstrap JS Bundle with Popper -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
