@@ -36,15 +36,15 @@ if (typeof turf === 'undefined') {
         ]
       };
   
-      // Define bounding box and cell size for hex grid
+      // bounding box and cell size for hex grid
       const bbox = [-80.205448, 43.264334, -79.606710, 43.710887];
       const cellSize = 1; // in kilometers
       const options = { units: 'kilometers' };
   
-      // Generate hexgrid over area
+      // hexgrid over area
       let hexgrid = turf.hexGrid(bbox, cellSize, options);
   
-      // Filter bus stops: only include stops within 1.5 km of any food bank
+      // Filter bus stops: only include stops within 1 km of any food bank
       const nearbyStops = allBusStops.features.filter(stop => {
         return foodBanks.features.some(bank => {
           const dist = turf.distance(bank, stop, { units: 'kilometers' });
@@ -57,7 +57,7 @@ if (typeof turf === 'undefined') {
         features: nearbyStops
       };
   
-      // Count bus stops in each hex cell using turf.collect
+      // Count bus stops in each hex cell
       const hexWithCounts = turf.collect(hexgrid, filteredStops, 'stop_id', 'stop_ids');
   
       hexWithCounts.features.forEach(f => {
