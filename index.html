@@ -96,7 +96,6 @@
           <i class="bi bi-gear"></i> Methodology
         </button>
       </li>
-      <!-- How to Use tab -->
       <li class="nav-item" role="presentation">
         <button class="nav-link" id="howto-tab" data-bs-toggle="tab" data-bs-target="#howto" type="button" role="tab">
           <i class="bi bi-question-circle-fill"></i> How to Use
@@ -128,7 +127,7 @@
         </div>
       </div>
 
-      <!-- Data Sources -->
+      <!-- Data Sources Tab -->
       <div class="tab-pane fade" id="data" role="tabpanel">
         <div class="card shadow-sm">
           <div class="card-body">
@@ -142,9 +141,7 @@
                 </ul>
               </li>
               <li><strong>Food bank location data</strong>
-                <ul>
-                  <li>FeedHalton.ca</li>
-                </ul>
+                <ul><li>FeedHalton.ca</li></ul>
               </li>
               <li><strong>Address points data</strong>
                 <ul>
@@ -155,9 +152,7 @@
                 </ul>
               </li>
               <li><strong>Dissemination Area (DA) Boundary data</strong>
-                <ul>
-                  <li>Statistics Canada</li>
-                </ul>
+                <ul><li>Statistics Canada</li></ul>
               </li>
             </ul>
           </div>
@@ -181,28 +176,33 @@
         </div>
       </div>
 
-      <!-- How to Use Tab -->
+      <!-- How to Use Tab (with image restored) -->
       <div class="tab-pane fade" id="howto" role="tabpanel">
         <div class="card shadow-sm">
           <div class="card-body">
             <h3 class="card-title">How to Use the Map</h3>
-            <p>This map contains multiple layers. Here's how to interpret them:</p>
+            <p>Based on the type of geospatial relationship you intend to explore, select the correct layer that is relevant to your exploration. This map was designed to reflect three key types of spatial relationships that provide implications for Nucleus to review and plan for their services:</p>
+            <ol>
+              <li><strong>Dissemination Area (DA) and Food Banks:</strong> Color-gradient proximity maps help identify DAs that are underserved by food bank coverage.</li>
+              <li><strong>Food Banks and Public Transit:</strong> Buffer-based analysis (1KM radius) highlights how well each food bank is served by nearby bus stops.</li>
+              <li><strong>Residential Address Points and Bus Stops:</strong> Proximity-based relationships illustrate transit accessibility for specific household locations. Especially useful for query based on clients' address.</li>
+            </ol>
+            <p class="mt-4">This map contains multiple layers. Here's how to interpret them:</p>
             <ul>
-              <li><strong>Halton Food Banks:</strong> Click black icons to view name, hours, contact.</li>
+              <li><strong>Halton Food Banks:</strong> Click black icons to view name, hours, and contact.</li>
               <li><strong>Spatial Join Buffers:</strong> Purple rings created by 1KM Buffer show how many bus stops are near each food bank.</li>
-              <li><strong>Dissemination Areas (DA):</strong> Colored polygons showing distance between food banks for each area.</li>
-              <li><strong>Address Points:</strong> Household locations used for possible client-specific accessibility analysis.</li>
-              <li><strong>Bus Stops:</strong> Bus sign representing public transit access.</li>
+              <li><strong>Dissemination Areas (DA):</strong> Colored polygons showing the distance between food banks for each area centre.</li>
+              <li><strong>Address Points:</strong> Home locations used for possible client-specific accessibility analysis.</li>
+              <li><strong>Bus Stops:</strong> Bus signs representing public transit access.</li>
             </ul>
-            <p>Zoom into neighborhoods and click symbols for more details via pop-ups.</p>
+            <!-- Restored image -->
+            <!-- Insert image -->
+            <div class="text-center mt-4">
+            <img src="Layer Demo.png" alt="Layer Control Panel Screenshot" style="max-width: 100%; border-radius: 10px; box-shadow: 0 2px 6px rgba(0,0,0,0.3);">
+              <p class="text-muted mt-2"><em>Example of layer control panel used to turn ON/OFF layers.</em></p>
+              </div>
 
-            <!-- Insert Layer Demo.png -->
-            <div class="text-center mt-3">
-            
-              <img src="Layer Demo.png" alt="Layer Demo" class="img-fluid" style="max-width:600px;">
-              <p class="mt-2"><small>Example of multiple layers displayed: Food Banks, Buffers, DAs, Addresses, and Bus Stops.</small></p>
-            </div>
-
+            <p class="mt-3">Click FOOD BANK (with phone number and time opening) and ohter symbols for more details in pop-ups!</p>
           </div>
         </div>
       </div>
