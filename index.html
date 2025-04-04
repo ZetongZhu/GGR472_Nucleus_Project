@@ -11,34 +11,31 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
 
   <style>
-    /* Background and text styling */
     body {
       background-color: #1c2237;
       color: #ffffff;
     }
 
-    /* Updated: Gradient Banner */
     .banner {
       background: linear-gradient(90deg, #1c2237 0%, #2d4059 100%);
       height: 80px;
       width: 100%;
     }
 
-    /* Nav tabs styling */
     .nav-tabs .nav-link {
       color: #ffffff;
     }
+
     .nav-tabs .nav-link.active {
       background-color: #f05a28;
       color: #fff;
     }
-    /* New: Hover effect for tabs */
+
     .nav-tabs .nav-link:hover {
       background-color: #374357;
       color: #fff;
     }
 
-    /* Tab content styling */
     .tab-content {
       background-color: #ffffff;
       color: #000000;
@@ -46,24 +43,22 @@
       padding: 2rem;
     }
 
-    /* New: Card enhancement */
     .card {
-      background-color: #f8f9fa; /* lighter background for contrast */
+      background-color: #f8f9fa;
       color: #1c2237;
       border: none;
     }
+
     .card-title {
       color: #1c2237;
       font-weight: bold;
     }
 
-    /* Slightly larger font for body text */
     .card-body p,
     .card-body li {
       font-size: 1.05rem;
     }
 
-    /* Map iframe styling */
     .iframe-map {
       width: 100%;
       height: 75vh;
@@ -74,11 +69,11 @@
 </head>
 
 <body>
-  <!-- Gradient banner -->
+  <!-- Header banner -->
   <div class="banner"></div>
 
   <div class="container mt-4">
-    <!-- Updated: More descriptive title -->
+    <!-- Title and subtitle -->
     <div class="text-center mb-4">
       <h1 class="display-5 fw-bold text-white">Mapping Food Access for Nucleus in Halton Region</h1>
       <p class="lead text-light">An Interactive Tool for Service Planning and Spatial Insight</p>
@@ -101,6 +96,12 @@
           <i class="bi bi-gear"></i> Methodology
         </button>
       </li>
+      <!-- How to Use tab -->
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="howto-tab" data-bs-toggle="tab" data-bs-target="#howto" type="button" role="tab">
+          <i class="bi bi-question-circle-fill"></i> How to Use
+        </button>
+      </li>
       <li class="nav-item" role="presentation">
         <button class="nav-link" id="map-tab" data-bs-toggle="tab" data-bs-target="#mapPanel" type="button" role="tab">
           <i class="bi bi-map"></i> Map
@@ -108,10 +109,10 @@
       </li>
     </ul>
 
-    <!-- Tab Content -->
+    <!-- Tab Contents -->
     <div class="tab-content mt-4" id="myTabContent">
 
-      <!-- What We Created -->
+      <!-- About Tab -->
       <div class="tab-pane fade show active" id="about" role="tabpanel">
         <div class="card shadow-sm">
           <div class="card-body">
@@ -141,7 +142,9 @@
                 </ul>
               </li>
               <li><strong>Food bank location data</strong>
-                <ul><li>FeedHalton.ca</li></ul>
+                <ul>
+                  <li>FeedHalton.ca</li>
+                </ul>
               </li>
               <li><strong>Address points data</strong>
                 <ul>
@@ -152,35 +155,62 @@
                 </ul>
               </li>
               <li><strong>Dissemination Area (DA) Boundary data</strong>
-                <ul><li>Statistics Canada</li></ul>
+                <ul>
+                  <li>Statistics Canada</li>
+                </ul>
               </li>
             </ul>
           </div>
         </div>
       </div>
 
-      <!-- Methodology -->
+      <!-- Methodology Tab -->
       <div class="tab-pane fade" id="methodology" role="tabpanel">
         <div class="card shadow-sm">
           <div class="card-body">
             <h3 class="card-title">Methodology</h3>
-            <p>
-              Spatial analysis performed using proximity and containment logic between food banks, dissemination areas, and bus stops. 
-              We applied color gradients, hexgrids, and buffer queries using Turf.js and ArcGIS tools to identify underserved regions and accessibility challenges.
-            </p>
+            <p>We conducted spatial analysis through a combination of ArcGIS Pro and ArcGIS Online.</p>
+            <ul>
+              <li><strong>Data Processing (ArcGIS Pro):</strong> We used spatial query, Near function, and Buffer tools to calculate proximity and service areas.</li>
+              <li><strong>Layer Symbolization:</strong> Layers were styled using color gradients and spatial buffers to reflect accessibility.</li>
+              <li><strong>Web Deployment:</strong> Processed data was uploaded to ArcGIS Online, with pop-ups and interactive legends configured for user experience.</li>
+              <li><strong>Interface Design:</strong> The website was developed using HTML + Bootstrap to provide a responsive, accessible layout.</li>
+            </ul>
+            <p>These steps helped deliver a scalable decision-support tool that visually communicates where food access gaps exist in the Halton Region.</p>
           </div>
         </div>
       </div>
 
-      <!-- Map Tab with ArcGIS Embedded Map -->
+      <!-- How to Use Tab -->
+      <div class="tab-pane fade" id="howto" role="tabpanel">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h3 class="card-title">How to Use the Map</h3>
+            <p>This map contains multiple layers. Here's how to interpret them:</p>
+            <ul>
+              <li><strong>Halton Food Banks:</strong> Click black icons to view name, hours, contact.</li>
+              <li><strong>Spatial Join Buffers:</strong> Purple rings created by 1KM Buffer show how many bus stops are near each food bank.</li>
+              <li><strong>Dissemination Areas (DA):</strong> Colored polygons showing distance between food banks for each area.</li>
+              <li><strong>Address Points:</strong> Household locations used for possible client-specific accessibility analysis.</li>
+              <li><strong>Bus Stops:</strong> Bus sign representing public transit access.</li>
+            </ul>
+            <p>Zoom into neighborhoods and click symbols for more details via pop-ups.</p>
+
+            <!-- Insert Layer Demo.png -->
+            <div class="text-center mt-3">
+            
+              <img src="Layer Demo.png" alt="Layer Demo" class="img-fluid" style="max-width:600px;">
+              <p class="mt-2"><small>Example of multiple layers displayed: Food Banks, Buffers, DAs, Addresses, and Bus Stops.</small></p>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Map Tab -->
       <div class="tab-pane fade" id="mapPanel" role="tabpanel">
         <h3 class="mb-3">Interactive Web Map With Different Layers</h3>
-        <iframe 
-          class="iframe-map" 
-          src="https://utoronto.maps.arcgis.com/apps/instant/basic/index.html?appid=0c535fc2fcf44116bf4472fd638297fb" 
-          allowfullscreen 
-          loading="lazy">
-        </iframe>
+        <iframe class="iframe-map" src="https://utoronto.maps.arcgis.com/apps/instant/basic/index.html?appid=0c535fc2fcf44116bf4472fd638297fb" allowfullscreen loading="lazy"></iframe>
       </div>
     </div>
   </div>
